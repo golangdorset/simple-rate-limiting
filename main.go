@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"github.com/golangdorset/simpleratelimiting/utils"
 	"time"
 )
 
 func main() {
-	one()
+	//one()
 	//two()
-	//three()
+	three()
 }
 
 // ranging over the channel you can see that we print out the int as soon as it is written in by the feeder.
@@ -19,11 +18,11 @@ func one() {
 	go utils.Feed(requests)
 
 	for i := range requests {
-		fmt.Println("\t\t\t\t\tout:", i)
+		utils.PrintOut("out:", i)
 	}
 }
 
-// using a ticker that puts the time on the channel every 1 second, we can delay the reading from the requests queue
+// using a ticker that puts an object on the channel every 1 second, we can delay the reading from the requests queue
 // as shown by the rate of requests going in, and being read out
 func two() {
 	requests := make(chan int, 100)
@@ -34,12 +33,14 @@ func two() {
 
 	for i := range requests {
 		<-drip
-		fmt.Println("\t\t\t\t\tout:", i, utils.PrintNow())
+		utils.PrintOut("out:", i, utils.PrintNow())
 	}
 }
 
 // feed2 randomly adds up to 20 ints at random intervals, then will sleep for 20 seconds before continuing, this
 // allows the "buffer" to re-fill.
+// to start with the requests are processed at the same speed they are received, but once the burst of 5 has been used,
+// we are back to 1 a second.
 func three() {
 	requests := make(chan int, 100)
 
@@ -70,6 +71,6 @@ func three() {
 
 	for i := range requests {
 		<-burstyLimiter
-		fmt.Println("\t\t\t\t\tout:", i, utils.PrintNow())
+		utils.PrintOut("out:", i, utils.PrintNow())
 	}
 }

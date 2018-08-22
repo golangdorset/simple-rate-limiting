@@ -38,16 +38,3 @@ func Feed2(f chan int) {
 		f <- i
 	}
 }
-
-// print the time in a simple format
-func PrintNow() string {
-	return time.Now().Format("15:04:05")
-}
-
-// reports the size of the requests queue and burst buffer, and badly pad it to the right of the terminal
-func PrintChans(queue chan int, buffer chan bool) {
-	for {
-		fmt.Printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\trequest queue: %v, buffer: %v\n", len(queue), len(buffer))
-		time.Sleep(time.Millisecond * 500)
-	}
-}
