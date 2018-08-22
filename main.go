@@ -6,9 +6,11 @@ import (
 )
 
 func main() {
-	//one()
+	one()
+
 	//two()
-	three()
+
+	//three()
 }
 
 // ranging over the channel you can see that we print out the int as soon as it is written in by the feeder.
