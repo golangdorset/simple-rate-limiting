@@ -1,19 +1,19 @@
 package main
 
 import (
-	"github.com/golangdorset/simpleratelimiting/utils"
 	"fmt"
+	"github.com/golangdorset/simpleratelimiting/utils"
 	"time"
 )
 
-func main(){
+func main() {
 	one()
 	//two()
 	//three()
 }
 
 // ranging over the channel you can see that we print out the int as soon as it is written in by the feeder.
-func one(){
+func one() {
 	requests := make(chan int, 100)
 
 	go utils.Feed(requests)
@@ -25,7 +25,7 @@ func one(){
 
 // using a ticker that puts the time on the channel every 1 second, we can delay the reading from the requests queue
 // as shown by the rate of requests going in, and being read out
-func two(){
+func two() {
 	requests := make(chan int, 100)
 
 	go utils.Feed(requests)
@@ -33,15 +33,14 @@ func two(){
 	drip := time.Tick(time.Second)
 
 	for i := range requests {
-		<- drip
+		<-drip
 		fmt.Println("\t\t\t\t\tout:", i, utils.PrintNow())
 	}
 }
 
-
 // feed2 randomly adds up to 20 ints at random intervals, then will sleep for 20 seconds before continuing, this
 // allows the "buffer" to re-fill.
-func three(){
+func three() {
 	requests := make(chan int, 100)
 
 	go utils.Feed2(requests)
@@ -52,10 +51,9 @@ func three(){
 	burstyLimiter := make(chan bool, 5)
 
 	// pre-fill the buffer channel so that the first 5 requests can be processes without waiting for the "tick"
-	for i:=0;i<5;i++ {
+	for i := 0; i < 5; i++ {
 		burstyLimiter <- true
 	}
-
 
 	// in the background, every second (using the drip feed ticker from before) add a "token" to the bursty limiter
 	// if no requests come in for a period of time, then this "buffer" will fill back to 5
@@ -70,10 +68,8 @@ func three(){
 	// print the status of the request queue and size of the "buffer" limiter
 	go utils.PrintChans(requests, burstyLimiter)
 
-
-
 	for i := range requests {
-		<- burstyLimiter
+		<-burstyLimiter
 		fmt.Println("\t\t\t\t\tout:", i, utils.PrintNow())
 	}
 }
