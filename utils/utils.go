@@ -1,8 +1,7 @@
 package utils
 
 import (
-	"fmt"
-	"math/rand"
+		"math/rand"
 	"time"
 )
 
@@ -13,7 +12,7 @@ func Feed(f chan int) {
 		randSleep := rand.Intn(100)
 		time.Sleep(time.Millisecond * time.Duration(randSleep*10))
 
-		fmt.Println("in:", count)
+		PrintColOne("in:", count)
 		f <- count
 		count++
 	}
@@ -26,7 +25,7 @@ func Feed2(f chan int) {
 		randSleep := rand.Intn(100)
 		time.Sleep(time.Millisecond * time.Duration(randSleep*10))
 
-		fmt.Println("in:", i)
+		PrintColOne("in:", i)
 		f <- i
 	}
 	time.Sleep(time.Second * 20)
@@ -34,7 +33,7 @@ func Feed2(f chan int) {
 		randSleep := rand.Intn(100)
 		time.Sleep(time.Millisecond * time.Duration(randSleep*10))
 
-		fmt.Println("in:", i)
+		PrintColOne("in:", i)
 		f <- i
 	}
 }

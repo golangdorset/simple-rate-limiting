@@ -20,7 +20,7 @@ func one() {
 	go utils.Feed(requests)
 
 	for i := range requests {
-		utils.PrintOut("out:", i)
+		utils.PrintColTwo("out:", i)
 	}
 }
 
@@ -35,7 +35,7 @@ func two() {
 
 	for i := range requests {
 		<-drip
-		utils.PrintOut("out:", i, utils.PrintNow())
+		utils.PrintColTwo("out:", i, utils.PrintNow())
 	}
 }
 
@@ -73,6 +73,6 @@ func three() {
 
 	for i := range requests {
 		<-burstyLimiter
-		utils.PrintOut("out:", i, utils.PrintNow())
+		utils.PrintColTwo("out:", i, utils.PrintNow())
 	}
 }

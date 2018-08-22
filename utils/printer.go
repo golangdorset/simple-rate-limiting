@@ -11,17 +11,17 @@ func Print(in, out, status string) {
 	fmt.Printf(format, in, out, status)
 }
 
-func PrintIn(s ...interface{}) {
+func PrintColOne(s ...interface{}) {
 	str := fmt.Sprint(s...)
 	Print(str, "", "")
 }
 
-func PrintOut(s ...interface{}) {
+func PrintColTwo(s ...interface{}) {
 	str := fmt.Sprint(s...)
 	Print("", str, "")
 }
 
-func PrintStatus(s ...interface{}) {
+func PrintColThree(s ...interface{}) {
 	str := fmt.Sprint(s...)
 	Print("", "", str)
 }
@@ -34,7 +34,7 @@ func PrintNow() string {
 // reports the size of the requests queue and burst buffer, and badly pad it to the right of the terminal
 func PrintChans(queue chan int, buffer chan bool) {
 	for {
-		PrintStatus(fmt.Sprintf("request queue: %v, buffer: %v\n", len(queue), len(buffer)))
+		PrintColThree(fmt.Sprintf("request queue: %v, buffer: %v\n", len(queue), len(buffer)))
 		time.Sleep(time.Millisecond * 500)
 	}
 }
