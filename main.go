@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/golangdorset/simpleratelimiting/utils"
+	"github.com/golangdorset/simple-rate-limiting/utils"
 	"time"
 )
 
